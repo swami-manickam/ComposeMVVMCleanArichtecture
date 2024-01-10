@@ -27,8 +27,8 @@ CryptoCurrency android app to show the coins list and its details using Coinpapr
   - Hilt - Easier way to incorporate Dagger DI into Android application.
   - Retrofit - A type-safe HTTP client for Android and Java.
 
-- ![app_architecture.png](..%2F..%2F..%2F..%2FDesktop%2Fapp_architecture.png)
-
+![app_architecture.png](..%2F..%2F..%2F..%2FDesktop%2Fapp_architecture.png)
+![architecture (1).png](..%2F..%2F..%2F..%2FDesktop%2Farchitecture%20%281%29.png)
 
 ### The app has the following base packages:
 - app: Contains Application and AppConstant classes
