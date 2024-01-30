@@ -20,6 +20,8 @@ import androidx.navigation.compose.rememberNavController
 import com.compose.cryptocurrency.R
 import com.compose.cryptocurrency.presentation.coindetail.CoinDetailScreen
 import com.compose.cryptocurrency.presentation.coinlist.CoinListScreen
+import com.compose.cryptocurrency.presentation.navigation.CoinBottomNav
+import com.compose.cryptocurrency.presentation.navigation.NavigationGraph
 import com.compose.cryptocurrency.presentation.ui.theme.CryptocurrencyAppYTTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
+                    val navController = rememberNavController()
                     Scaffold(topBar = {
                         TopAppBar(
                             title = {
@@ -44,8 +47,14 @@ class MainActivity : ComponentActivity() {
                             },
                             colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colors.primary)
                         )
-                    }) { innerPadding ->
-                        val navController = rememberNavController()
+                    }, bottomBar = { CoinBottomNav(navController = navController)}) { innerPadding ->
+
+                        NavigationGraph(
+                            navController = navController,
+                            Modifier.padding(innerPadding)
+                        )
+
+                        /*val navController = rememberNavController()
                         NavHost(
                             navController = navController,
                             startDestination = Screen.CoinListScreen.route,
@@ -61,10 +70,9 @@ class MainActivity : ComponentActivity() {
                             ) {
                                 CoinDetailScreen()
                             }
-                        }
+                        }*/
                     }
-
-
+                    //
                 }
             }
         }
