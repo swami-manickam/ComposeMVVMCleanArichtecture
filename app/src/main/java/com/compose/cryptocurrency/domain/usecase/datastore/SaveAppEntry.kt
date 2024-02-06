@@ -11,3 +11,8 @@ class SaveAppEntry @Inject constructor(private val localUserManger: LocalUserMan
 
 
 }
+
+data class AppEntryUseCases(
+    val readAppEntry: ReadAppEntry,
+    val saveAppEntry: SaveAppEntry
+)

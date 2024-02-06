@@ -86,7 +86,7 @@ fun OnBoardingScreen(onBoardingEvent: (OnBoardingEvent) -> Unit) {
                 CoinButton(modifier = Modifier.padding(0.dp)/*Modifier.weight(0.5f)*/,text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pageState.currentPage == 3) {
+                            if (pageState.currentPage == 2) {
                                 //Navigate to the main screen and save a value in datastore preferences
                                 onBoardingEvent(OnBoardingEvent.SaveAppEntry)
                             } else {
@@ -95,10 +95,7 @@ fun OnBoardingScreen(onBoardingEvent: (OnBoardingEvent) -> Unit) {
                         }
                     })
             }
-
-
         }
-
 
         Spacer(modifier = Modifier.weight(0.2f))
     }
