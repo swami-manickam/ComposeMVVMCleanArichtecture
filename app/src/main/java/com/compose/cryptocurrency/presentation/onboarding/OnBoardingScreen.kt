@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 
 @ExperimentalFoundationApi
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(onBoardingEvent: (OnBoardingEvent) -> Unit) {
 
     Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.primary)) {
         val pageState = rememberPagerState(initialPage = 0) {
@@ -86,18 +86,16 @@ fun OnBoardingScreen() {
                 CoinButton(modifier = Modifier.padding(0.dp)/*Modifier.weight(0.5f)*/,text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pageState.currentPage == 3) {
+                            if (pageState.currentPage == 2) {
                                 //Navigate to the main screen and save a value in datastore preferences
+                                onBoardingEvent(OnBoardingEvent.SaveAppEntry)
                             } else {
                                 pageState.animateScrollToPage(page = pageState.currentPage + 1)
                             }
                         }
                     })
             }
-
-
         }
-
 
         Spacer(modifier = Modifier.weight(0.2f))
     }
