@@ -3,6 +3,7 @@ package com.compose.cryptocurrency.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat.getString
+import androidx.navigation.NavGraph
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -25,6 +27,7 @@ import com.compose.cryptocurrency.R
 import com.compose.cryptocurrency.presentation.coindetail.CoinDetailScreen
 import com.compose.cryptocurrency.presentation.coinlist.CoinListScreen
 import com.compose.cryptocurrency.presentation.navigation.CoinBottomNav
+import com.compose.cryptocurrency.presentation.navigation.CoinNavGraph
 import com.compose.cryptocurrency.presentation.navigation.NavigationGraph
 import com.compose.cryptocurrency.presentation.onboarding.OnBoardingScreen
 import com.compose.cryptocurrency.presentation.ui.theme.CryptocurrencyAppYTTheme
@@ -34,6 +37,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -42,7 +48,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    OnBoardingScreen()
+                    /*OnBoardingScreen()*/
+                    CoinNavGraph(startDestination = viewModel.startDestination.value)
                 }
             }
         }
