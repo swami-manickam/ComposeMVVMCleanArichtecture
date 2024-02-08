@@ -12,13 +12,13 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun CoinButton(modifier: Modifier,text: String, onClick: () -> Unit) {
+fun CoinButton(modifier: Modifier, text: String, onClick: () -> Unit) {
 
     Button(
         modifier = modifier,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            contentColor = MaterialTheme.colors.onPrimary,
+            contentColor = MaterialTheme.colors.primary,
             containerColor = MaterialTheme.colors.secondaryVariant
         ),
         shape = RoundedCornerShape(size = 6.dp)
@@ -31,16 +31,25 @@ fun CoinButton(modifier: Modifier,text: String, onClick: () -> Unit) {
 
 
 @Composable
-fun CoinTextButton(modifier: Modifier,text: String, onClick: () -> Unit) {
+fun CoinTextButton(modifier: Modifier, text: String, onClick: () -> Unit) {
 
-    TextButton(modifier = modifier,onClick = onClick) {
+    TextButton(modifier = modifier, onClick = onClick) {
         Text(
             text = text,
             style = MaterialTheme.typography.body2,
-            color = MaterialTheme.colors.secondaryVariant
+            color = MaterialTheme.colors.primary
         )
     }
+}
 
 
+@Composable
+fun CoinText(modifier: Modifier, text: String) {
+    Text(
+        modifier = modifier,
+        text = text,
+        style = MaterialTheme.typography.body2,
+        color = MaterialTheme.colors.primary
+    )
 }
 

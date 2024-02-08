@@ -39,25 +39,28 @@ fun OnBoardingPage(modifier: Modifier, page: PageData) {
     Column {
         Image(modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.6f),
+            .fillMaxHeight(1f),
             painter = painterResource(id = page.image),
             contentDescription = "",
             contentScale = ContentScale.Crop
         )
 
         Spacer(modifier = Modifier.height(mediumPadding1))
-        Text(
-            modifier = Modifier.padding(horizontal = mediumPadding2),
-            text = page.title,
-            style = MaterialTheme.typography.body1,
-            color = colorResource(id = R.color.white)
-        )
-        Text(
-            modifier = Modifier.padding(horizontal = mediumPadding2),
-            text = page.description,
-            style = MaterialTheme.typography.body2,
-            color = colorResource(id = R.color.white)
-        )
+
+        /*Box{
+            Text(
+                modifier = Modifier.padding(horizontal = mediumPadding2),
+                text = page.title,
+                style = MaterialTheme.typography.body1,
+                color = colorResource(id = R.color.white)
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = mediumPadding2),
+                text = page.description,
+                style = MaterialTheme.typography.body2,
+                color = colorResource(id = R.color.white)
+            )
+        }*/
 
     }
 
@@ -68,7 +71,7 @@ fun OnBoardingPage(modifier: Modifier, page: PageData) {
 fun PageIndicator(
     modifier: Modifier, pageSize: Int,
     selectedPage: Int,
-    selectedColor: Color = Color.Yellow,
+    selectedColor: Color = MaterialTheme.colors.primary,
     unSelectedColor: Color = MaterialTheme.colors.secondaryVariant
 ) {
 
@@ -78,7 +81,7 @@ fun PageIndicator(
                 modifier = Modifier
                     .size(pageIndicatorSize)
                     .clip(CircleShape)
-                    .background(color = if(page == selectedPage) selectedColor else unSelectedColor)
+                    .background(color = if (page == selectedPage) selectedColor else unSelectedColor)
             )
         }
     }
