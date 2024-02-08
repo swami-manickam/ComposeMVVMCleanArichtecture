@@ -133,8 +133,8 @@ fun CoinNavGraph(
 
 
 sealed class CoinBottomNavItem(val route: String, val icon: Int, val title: String) {
-    object CoinOnboarding : CoinBottomNavItem("onboarding", R.drawable.ic_home, "Onboarding")
-    object CoinHome : CoinBottomNavItem("home", R.drawable.ic_home, "Home")
-    object CoinNotification : CoinBottomNavItem("notification", R.drawable.ic_notification, "Notification")
-    object CoinProfile : CoinBottomNavItem("profile", R.drawable.ic_profile, "Profile")
+    object CoinOnboarding : CoinBottomNavItem("onboarding", R.drawable.ic_baseline_home_24, "Onboarding")
+    object CoinHome : CoinBottomNavItem("home", R.drawable.ic_baseline_home_24, "Home")
+    object CoinNotification : CoinBottomNavItem("notification", R.drawable.ic_baseline_notifications_24, "Notification")
+    object CoinProfile : CoinBottomNavItem("profile", R.drawable.ic_baseline_person_24, "Profile")
 }
