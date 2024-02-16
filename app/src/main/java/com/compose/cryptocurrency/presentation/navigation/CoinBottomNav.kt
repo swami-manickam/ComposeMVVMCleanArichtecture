@@ -23,7 +23,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.compose.cryptocurrency.R
+import com.compose.cryptocurrency.presentation.AnimatedSplashScreen
 import com.compose.cryptocurrency.presentation.DashboardScreen
+import com.compose.cryptocurrency.presentation.MainViewModel
 import com.compose.cryptocurrency.presentation.Screen
 import com.compose.cryptocurrency.presentation.coindetail.CoinDetailScreen
 import com.compose.cryptocurrency.presentation.coinlist.CoinListScreen
@@ -118,12 +120,25 @@ fun CoinNavGraph(
 
     NavHost(navController = navController, startDestination = startDestination) {
 
-        composable(route = CoinBottomNavItem.CoinOnboarding.route) {
+        composable(
+            route = Screen.SplashScreen.route
+        ) {
+            val viewModel: MainViewModel = hiltViewModel()
+            AnimatedSplashScreen(navController = navController, viewModel)
+        }
+
+        composable(route = Screen.OnBoardingScreen.route) {
             val viewModel: OnBoardingViewModel = hiltViewModel()
-            OnBoardingScreen(onBoardingEvent = viewModel::onEvent)
+            OnBoardingScreen(navController = navController,onBoardingEvent = viewModel::onEvent)
         }
         composable(CoinBottomNavItem.CoinHome.route) {
             DashboardScreen()
+        }
+
+        composable(
+            route = Screen.CoinDetailScreen.route + "/{coinId}"
+        ) {
+            CoinDetailScreen()
         }
 
     }
@@ -133,7 +148,6 @@ fun CoinNavGraph(
 
 
 sealed class CoinBottomNavItem(val route: String, val icon: Int, val title: String) {
-    object CoinOnboarding : CoinBottomNavItem("onboarding", R.drawable.ic_baseline_home_24, "Onboarding")
     object CoinHome : CoinBottomNavItem("home", R.drawable.ic_baseline_home_24, "Home")
     object CoinNotification : CoinBottomNavItem("notification", R.drawable.ic_baseline_notifications_24, "Notification")
     object CoinProfile : CoinBottomNavItem("profile", R.drawable.ic_baseline_person_24, "Profile")

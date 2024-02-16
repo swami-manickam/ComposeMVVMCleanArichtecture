@@ -22,7 +22,7 @@ class MainViewModel @Inject constructor(private val readAppEntry: ReadAppEntry) 
     val splashCondition: State<Boolean> = _splashCondition
 
 
-    private val _startDestination = mutableStateOf(CoinBottomNavItem.CoinOnboarding.route)
+    private val _startDestination = mutableStateOf(Screen.OnBoardingScreen.route)
     val startDestination: State<String> = _startDestination
 
 
@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(private val readAppEntry: ReadAppEntry) 
             if (shouldStartFromHomeScreen)
                 _startDestination.value = CoinBottomNavItem.CoinHome.route
             else
-                _startDestination.value = CoinBottomNavItem.CoinOnboarding.route
+                _startDestination.value = Screen.OnBoardingScreen.route
             delay(300) //Without this delay, the onBoarding screen will show for a momentum.
             _splashCondition.value = false
         }.launchIn(viewModelScope)

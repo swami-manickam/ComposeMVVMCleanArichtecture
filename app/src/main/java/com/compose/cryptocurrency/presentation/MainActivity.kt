@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     /*OnBoardingScreen()*/
-                    CoinNavGraph(startDestination = viewModel.startDestination.value)
+                    CoinNavGraph(startDestination = /*viewModel.startDestination.value*/Screen.SplashScreen.route)
                 }
             }
         }
