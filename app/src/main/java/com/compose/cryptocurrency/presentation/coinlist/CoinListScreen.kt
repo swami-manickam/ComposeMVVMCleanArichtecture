@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.compose.cryptocurrency.presentation.Screen
 import com.compose.cryptocurrency.presentation.coinlist.components.CoinListItem
+import com.compose.cryptocurrency.presentation.navigation.CoinNavGraph
 
 @Composable
 fun CoinListScreen(
@@ -29,7 +30,7 @@ fun CoinListScreen(
             items(state.coins) { coin ->
                 CoinListItem(coin = coin, onItemClick = {
                     navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
-
+                    //CoinNavGraph(startDestination = Screen.CoinDetailScreen.route + "/${coin.id}")
                 })
             }
         }
