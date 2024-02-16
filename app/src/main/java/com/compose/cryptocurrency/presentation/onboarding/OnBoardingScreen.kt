@@ -24,11 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.compose.cryptocurrency.R
 import com.compose.cryptocurrency.presentation.Dimens
 import com.compose.cryptocurrency.presentation.commonview.CoinButton
 import com.compose.cryptocurrency.presentation.commonview.CoinText
 import com.compose.cryptocurrency.presentation.commonview.CoinTextButton
+import com.compose.cryptocurrency.presentation.navigation.CoinBottomNavItem
 import com.compose.cryptocurrency.presentation.onboarding.components.OnBoardingPage
 import com.compose.cryptocurrency.presentation.onboarding.components.PageIndicator
 import kotlinx.coroutines.launch
@@ -36,7 +38,7 @@ import kotlinx.coroutines.launch
 
 @ExperimentalFoundationApi
 @Composable
-fun OnBoardingScreen(onBoardingEvent: (OnBoardingEvent) -> Unit) {
+fun OnBoardingScreen(navController: NavController, onBoardingEvent: (OnBoardingEvent) -> Unit) {
 
     /*Column(modifier = Modifier
         .fillMaxSize()
@@ -156,6 +158,7 @@ fun OnBoardingScreen(onBoardingEvent: (OnBoardingEvent) -> Unit) {
                                 if (pageState.currentPage == 2) {
                                     //Navigate to the main screen and save a value in datastore preferences
                                     onBoardingEvent(OnBoardingEvent.SaveAppEntry)
+                                    navController.navigate(CoinBottomNavItem.CoinHome.route)
                                 } else {
                                     pageState.animateScrollToPage(page = pageState.currentPage + 1)
                                 }
