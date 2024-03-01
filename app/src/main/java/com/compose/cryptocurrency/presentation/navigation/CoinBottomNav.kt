@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,6 +34,7 @@ import com.compose.cryptocurrency.presentation.notification.CoinNotificationScre
 import com.compose.cryptocurrency.presentation.onboarding.OnBoardingScreen
 import com.compose.cryptocurrency.presentation.onboarding.OnBoardingViewModel
 import com.compose.cryptocurrency.presentation.profile.CoinProfileScreen
+import com.compose.cryptocurrency.presentation.profile.ProfileViewModel
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
@@ -40,8 +42,8 @@ fun CoinBottomNav(navController: NavController) {
 
     val items = listOf(
         CoinBottomNavItem.CoinHome,
-        CoinBottomNavItem.CoinProfile,
-        CoinBottomNavItem.CoinNotification
+        CoinBottomNavItem.CoinNotification,
+        CoinBottomNavItem.CoinProfile
     )
 
     BottomNavigation(
@@ -84,6 +86,7 @@ fun CoinBottomNav(navController: NavController) {
 }
 
 
+@ExperimentalMaterialApi
 @Composable
 fun NavigationGraph(navController: NavHostController, modifier: Modifier) {
     NavHost(
@@ -94,11 +97,14 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier) {
         composable(CoinBottomNavItem.CoinHome.route) {
             CoinListScreen(navController = navController)
         }
-        composable(CoinBottomNavItem.CoinProfile.route) {
-            CoinProfileScreen()
-        }
+
         composable(CoinBottomNavItem.CoinNotification.route) {
             CoinNotificationScreen()
+        }
+
+        composable(CoinBottomNavItem.CoinProfile.route) {
+            val viewModel: ProfileViewModel = hiltViewModel()
+            CoinProfileScreen(viewModel, navController)
         }
 
         composable(
