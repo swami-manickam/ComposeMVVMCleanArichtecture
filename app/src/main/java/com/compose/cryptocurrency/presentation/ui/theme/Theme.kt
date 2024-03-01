@@ -18,7 +18,7 @@ private val DarkColorPalette = darkColors(
     onSecondary = TextRed,
     primaryVariant =ColorOnPrimary,
     secondaryVariant = TextWhite,
-    secondary = DarkBlue
+    secondary = DarkBlue,
 )
 
 private val LightColorPalette = lightColors(
