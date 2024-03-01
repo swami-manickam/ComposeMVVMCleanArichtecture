@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -85,6 +86,7 @@ fun CoinBottomNav(navController: NavController) {
 }
 
 
+@ExperimentalMaterialApi
 @Composable
 fun NavigationGraph(navController: NavHostController, modifier: Modifier) {
     NavHost(

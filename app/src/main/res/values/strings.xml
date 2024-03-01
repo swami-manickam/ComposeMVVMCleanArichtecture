@@ -26,5 +26,17 @@
     <string name="about">About</string>
     <string name="about_the_app">About the app</string>
 
+    <string name="app_theme">App Theme</string>
+    <string name="change_theme">Change App Theme</string>
+    <string name="notifications">Notifications</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="more">More</string>
+    <string name="wallet">Wallet</string>
+    <string name="about_us">About Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_conditions">Terms And Conditions</string>
+
+
 
 </resources>
