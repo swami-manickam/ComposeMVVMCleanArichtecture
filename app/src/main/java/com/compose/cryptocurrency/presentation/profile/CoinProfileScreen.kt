@@ -64,6 +64,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.compose.cryptocurrency.BuildConfig
 import com.compose.cryptocurrency.R
+import com.compose.cryptocurrency.presentation.Screen
+import com.compose.cryptocurrency.presentation.wallet.WalletScreen
 
 @ExperimentalMaterialApi
 @OptIn(ExperimentalMaterial3Api::class)
@@ -109,14 +111,14 @@ fun ProfileScreenCard() {
             Column {
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    color = MaterialTheme.colors.onBackground,
+                    color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
 
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    color = MaterialTheme.colors.onBackground,
+                    color = Color.White,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
@@ -175,7 +177,7 @@ fun NotificationOptionUI(viewModel: ProfileViewModel) {
     Column(
         modifier = Modifier
             .padding(horizontal = 14.dp)
-            .padding(top = 10.dp)
+           /* .padding(top = 10.dp)*/
     ) {
         Text(
             text = stringResource(id = R.string.app_theme),
@@ -184,7 +186,7 @@ fun NotificationOptionUI(viewModel: ProfileViewModel) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(vertical = 8.dp)
         )
-        MoreItem(icon = R.drawable.ic_home,
+        MoreItem(icon = R.drawable.ic_dark_mode,
             mainText = stringResource(id = R.string.app_theme),
             subText = themeValue,
             onClick = { themeDialog.value = true })
@@ -275,38 +277,40 @@ fun MoreOptionsUI(navController: NavController) {
             var showSheet by remember { mutableStateOf(false) }
 
             if (showSheet) {
-                BottomSheet() {
+                /*BottomSheet() {
                     showSheet = false
-                }
+                }*/
+                showSheet = false
+                navController.navigate(Screen.WalletScreen.route)
             }
 
-            Text(
+            /*Text(
                 text = stringResource(id = R.string.more),
                 color = MaterialTheme.colors.onBackground,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
-            )
-            MoreItem(icon = R.drawable.ic_home,
+            )*/
+            MoreItem(icon = R.drawable.ic_wallet,
                 mainText = stringResource(id = R.string.wallet),
                 subText = stringResource(id = R.string.wallet),
                 onClick = {
                     showSheet = true
                 })
             MoreItem(
-                icon = R.drawable.ic_home,
+                icon = R.drawable.ic_about_us,
                 mainText = stringResource(id = R.string.about_us),
                 subText = stringResource(id = R.string.about_us),
                 onClick = { }
             )
             MoreItem(
-                icon = R.drawable.ic_home,
+                icon = R.drawable.ic_privacy_policy,
                 mainText = stringResource(id = R.string.privacy_policy),
                 subText = stringResource(id = R.string.privacy_policy),
                 onClick = { }
             )
             MoreItem(
-                icon = R.drawable.ic_home,
+                icon = R.drawable.ic_terms_conditions,
                 mainText = stringResource(id = R.string.terms_conditions),
                 subText = stringResource(id = R.string.terms_conditions),
                 onClick = { }
@@ -348,7 +352,7 @@ fun MoreItem(icon: Int, mainText: String, subText: String, onClick: () -> Unit) 
                     Icon(
                         painter = painterResource(id = icon),
                         contentDescription = "",
-                        tint = MaterialTheme.colors.onSurface,
+                        tint = Color.Unspecified,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
@@ -368,7 +372,7 @@ fun MoreItem(icon: Int, mainText: String, subText: String, onClick: () -> Unit) 
 
                     Text(
                         text = subText,
-                        color = Color.Gray,
+                        color = Color.White,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.offset(y = (-4).dp)
@@ -376,8 +380,8 @@ fun MoreItem(icon: Int, mainText: String, subText: String, onClick: () -> Unit) 
                 }
             }
             Icon(
-                /*painter = painterResource(id = com.google.android.material.R.drawable.ic_arrow_back_black_24)*/
-                imageVector = Icons.Default.ArrowForward,
+                painter = painterResource(id = R.drawable.ic_right_arrow),
+                /*imageVector = Icons.Default.ArrowForward,*/
                 contentDescription = "",
                 modifier = Modifier.size(15.dp),
                 tint = MaterialTheme.colors.onSurface
@@ -401,7 +405,6 @@ fun BottomSheet(onDismiss: () -> Unit) {
         CountryList()
     }
 }
-
 
 
 @Composable

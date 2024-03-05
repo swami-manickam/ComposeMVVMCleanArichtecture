@@ -35,6 +35,7 @@ import com.compose.cryptocurrency.presentation.onboarding.OnBoardingScreen
 import com.compose.cryptocurrency.presentation.onboarding.OnBoardingViewModel
 import com.compose.cryptocurrency.presentation.profile.CoinProfileScreen
 import com.compose.cryptocurrency.presentation.profile.ProfileViewModel
+import com.compose.cryptocurrency.presentation.wallet.WalletScreen
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
@@ -111,6 +112,13 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier) {
             route = Screen.CoinDetailScreen.route + "/{coinId}"
         ) {
             CoinDetailScreen()
+        }
+
+
+        composable(
+            route = Screen.WalletScreen.route
+        ) {
+            WalletScreen()
         }
 
     }
