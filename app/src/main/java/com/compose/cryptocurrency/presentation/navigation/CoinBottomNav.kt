@@ -158,6 +158,13 @@ fun NavigationGraph(
             WalletScreen()
         }
 
+
+        composable(
+            route = Screen.WalletScreen.route
+        ) {
+            WalletScreen()
+        }
+
     }
 }
 
