@@ -34,8 +34,6 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -45,6 +43,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -64,6 +63,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.compose.cryptocurrency.BuildConfig
 import com.compose.cryptocurrency.R
+import com.compose.cryptocurrency.presentation.Screen
 
 @ExperimentalMaterialApi
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,7 +97,7 @@ fun ProfileScreenCard() {
             .padding(10.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(6.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colors.onPrimary),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colors.background),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Row(
@@ -109,14 +109,14 @@ fun ProfileScreenCard() {
             Column {
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    color = MaterialTheme.colors.onBackground,
+                    color = MaterialTheme.colors.primaryVariant,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
 
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    color = MaterialTheme.colors.onBackground,
+                    color = MaterialTheme.colors.primaryVariant,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
@@ -175,16 +175,16 @@ fun NotificationOptionUI(viewModel: ProfileViewModel) {
     Column(
         modifier = Modifier
             .padding(horizontal = 14.dp)
-            .padding(top = 10.dp)
+           /* .padding(top = 10.dp)*/
     ) {
         Text(
             text = stringResource(id = R.string.app_theme),
-            color = MaterialTheme.colors.primary,
+            color = MaterialTheme.colors.primaryVariant,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(vertical = 8.dp)
         )
-        MoreItem(icon = R.drawable.ic_home,
+        MoreItem(icon = R.drawable.ic_dark_mode,
             mainText = stringResource(id = R.string.app_theme),
             subText = themeValue,
             onClick = { themeDialog.value = true })
@@ -192,13 +192,13 @@ fun NotificationOptionUI(viewModel: ProfileViewModel) {
 
     if (themeDialog.value) {
         AlertDialog(
-            backgroundColor = MaterialTheme.colors.primary,
+            backgroundColor = MaterialTheme.colors.background,
             onDismissRequest = {
                 themeDialog.value = false
             }, title = {
                 Text(
                     text = stringResource(id = R.string.change_theme),
-                    color = MaterialTheme.colors.onSurface,
+                    color = MaterialTheme.colors.primaryVariant,
                 )
             }, text = {
                 Column(
@@ -221,15 +221,15 @@ fun NotificationOptionUI(viewModel: ProfileViewModel) {
                                 selected = (text == selectedOption),
                                 onClick = null,
                                 colors = RadioButtonDefaults.colors(
-                                    selectedColor = MaterialTheme.colors.onPrimary,
-                                    unselectedColor = MaterialTheme.colors.background,
+                                    selectedColor = MaterialTheme.colors.primaryVariant,
+                                    unselectedColor = MaterialTheme.colors.primaryVariant,
                                     disabledColor = Color.Black
                                 ),
                             )
                             Text(
                                 text = text,
                                 modifier = Modifier.padding(start = 16.dp),
-                                color = MaterialTheme.colors.onSurface,
+                                color = MaterialTheme.colors.primaryVariant,
                             )
                         }
                     }
@@ -248,12 +248,13 @@ fun NotificationOptionUI(viewModel: ProfileViewModel) {
                         }
                     }
                 }) {
-                    Text(stringResource(id = R.string.confirm), color = Color.White)
+                    Text(stringResource(id = R.string.confirm), color = MaterialTheme.colors.primaryVariant)
                 }
             }, dismissButton = {
                 TextButton(onClick = {
+                    themeDialog.value = false
                 }) {
-                    Text(stringResource(id = R.string.cancel), color = Color.White)
+                    Text(stringResource(id = R.string.cancel), color = MaterialTheme.colors.primaryVariant)
                 }
             })
     }
@@ -274,39 +275,38 @@ fun MoreOptionsUI(navController: NavController) {
 
             var showSheet by remember { mutableStateOf(false) }
 
-            if (showSheet) {
-                BottomSheet() {
+            /*if (showSheet) {
+                showSheet = false
+                navController.navigate(Screen.WalletScreen.route)
+            }*/
+
+            LaunchedEffect(key1 = showSheet){
+                if(showSheet) {
                     showSheet = false
+                    navController.navigate(Screen.WalletScreen.route)
                 }
             }
 
-            Text(
-                text = stringResource(id = R.string.more),
-                color = MaterialTheme.colors.onBackground,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-            MoreItem(icon = R.drawable.ic_home,
+            MoreItem(icon = R.drawable.ic_wallet,
                 mainText = stringResource(id = R.string.wallet),
                 subText = stringResource(id = R.string.wallet),
                 onClick = {
                     showSheet = true
                 })
             MoreItem(
-                icon = R.drawable.ic_home,
+                icon = R.drawable.ic_about_us,
                 mainText = stringResource(id = R.string.about_us),
                 subText = stringResource(id = R.string.about_us),
                 onClick = { }
             )
             MoreItem(
-                icon = R.drawable.ic_home,
+                icon = R.drawable.ic_privacy_policy,
                 mainText = stringResource(id = R.string.privacy_policy),
                 subText = stringResource(id = R.string.privacy_policy),
                 onClick = { }
             )
             MoreItem(
-                icon = R.drawable.ic_home,
+                icon = R.drawable.ic_terms_conditions,
                 mainText = stringResource(id = R.string.terms_conditions),
                 subText = stringResource(id = R.string.terms_conditions),
                 onClick = { }
@@ -324,7 +324,7 @@ fun MoreItem(icon: Int, mainText: String, subText: String, onClick: () -> Unit) 
     Card(
         onClick = { onClick() },
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colors.onPrimary,
+            containerColor = MaterialTheme.colors.background,
         ),
         modifier = Modifier
             .padding(bottom = 8.dp)
@@ -348,7 +348,7 @@ fun MoreItem(icon: Int, mainText: String, subText: String, onClick: () -> Unit) 
                     Icon(
                         painter = painterResource(id = icon),
                         contentDescription = "",
-                        tint = MaterialTheme.colors.onSurface,
+                        tint = Color.Unspecified,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
@@ -359,28 +359,28 @@ fun MoreItem(icon: Int, mainText: String, subText: String, onClick: () -> Unit) 
                 ) {
                     Text(
                         text = mainText,
-                        color = MaterialTheme.colors.onSurface,
+                        color = MaterialTheme.colors.primaryVariant,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                     )
 
                     Spacer(modifier = Modifier.height(2.dp))
 
-                    Text(
+                    /*Text(
                         text = subText,
-                        color = Color.Gray,
+                        color = MaterialTheme.colors.primaryVariant,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.offset(y = (-4).dp)
-                    )
+                    )*/
                 }
             }
             Icon(
-                /*painter = painterResource(id = com.google.android.material.R.drawable.ic_arrow_back_black_24)*/
-                imageVector = Icons.Default.ArrowForward,
+                painter = painterResource(id = R.drawable.ic_right_arrow),
+                /*imageVector = Icons.Default.ArrowForward,*/
                 contentDescription = "",
                 modifier = Modifier.size(15.dp),
-                tint = MaterialTheme.colors.onSurface
+                tint = MaterialTheme.colors.primaryVariant
             )
 
         }
@@ -401,7 +401,6 @@ fun BottomSheet(onDismiss: () -> Unit) {
         CountryList()
     }
 }
-
 
 
 @Composable

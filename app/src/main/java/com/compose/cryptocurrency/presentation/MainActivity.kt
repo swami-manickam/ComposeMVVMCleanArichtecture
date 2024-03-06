@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,24 +16,26 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat.getString
-import androidx.navigation.NavGraph
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.compose.cryptocurrency.R
-import com.compose.cryptocurrency.presentation.coindetail.CoinDetailScreen
-import com.compose.cryptocurrency.presentation.coinlist.CoinListScreen
 import com.compose.cryptocurrency.presentation.navigation.CoinBottomNav
+import com.compose.cryptocurrency.presentation.navigation.CoinBottomNavItem
 import com.compose.cryptocurrency.presentation.navigation.CoinNavGraph
 import com.compose.cryptocurrency.presentation.navigation.NavigationGraph
-import com.compose.cryptocurrency.presentation.onboarding.OnBoardingScreen
 import com.compose.cryptocurrency.presentation.ui.theme.CryptocurrencyAppYTTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -64,39 +69,103 @@ class MainActivity : ComponentActivity() {
 fun DashboardScreen() {
     val navController = rememberNavController()
     val context = LocalContext.current
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(
-                    text = getString(context,R.string.app_name),
-                    color = MaterialTheme.colors.secondaryVariant
-                )
-            },
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colors.primary)
-        )
-    }, bottomBar = { CoinBottomNav(navController = navController)}) { innerPadding ->
+
+    val topBarState = rememberSaveable { (mutableStateOf(true)) }
+    val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
+    when (navBackStackEntry?.destination?.route) {
+        CoinBottomNavItem.CoinHome.route -> {
+            topBarState.value = true
+            bottomBarState.value = true
+        }
+
+        CoinBottomNavItem.CoinNotification.route -> {
+            topBarState.value = false
+            bottomBarState.value = true
+        }
+
+        CoinBottomNavItem.CoinProfile.route -> {
+            topBarState.value = false
+            bottomBarState.value = true
+        }
+
+        Screen.CoinDetailScreen.route + "/{coinId}" -> {
+            topBarState.value = true
+            bottomBarState.value = false
+        }
+
+        Screen.WalletScreen.route -> {
+            topBarState.value = true
+            bottomBarState.value = false
+        }
+    }
+
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CoinTopAppBar(navController = navController, topBarState, scrollBehavior)
+        },
+        bottomBar = {
+            CoinBottomNav(
+                navController = navController,
+                bottomBarState
+            )
+        }) { innerPadding ->
 
         NavigationGraph(
             navController = navController,
-            Modifier.padding(innerPadding)
+            Modifier.padding(innerPadding),
+            bottomBarState
         )
-
-        /*val navController = rememberNavController()
-        NavHost(
-            navController = navController,
-            startDestination = Screen.CoinListScreen.route,
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable(
-                route = Screen.CoinListScreen.route
-            ) {
-                CoinListScreen(navController = navController)
-            }
-            composable(
-                route = Screen.CoinDetailScreen.route + "/{coinId}"
-            ) {
-                CoinDetailScreen()
-            }
-        }*/
     }
+}
+
+
+@ExperimentalMaterial3Api
+@Composable
+fun CoinTopAppBar(
+    navController: NavController, topAppBarState: MutableState<Boolean>,
+    scrollBehavior: TopAppBarScrollBehavior
+) {
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val context = LocalContext.current
+
+    /*val scrollBehavior =  TopAppBarDefaults.exitUntilCollapsedScrollBehavior()*/
+
+    val headerTitle: String = when (navBackStackEntry?.destination?.route) {
+        Screen.CoinDetailScreen.route + "/{coinId}" -> {
+            getString(context, R.string.app_name)
+        }
+
+        Screen.WalletScreen.route -> {
+            getString(context, R.string.wallet)
+        }
+
+        else -> {
+            getString(context, R.string.app_name)
+        }
+    }
+
+    AnimatedVisibility(visible = topAppBarState.value,
+        enter = slideInVertically(initialOffsetY = { -it }),
+        exit = slideOutVertically(targetOffsetY = { -it }),
+        content = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = headerTitle,
+                        color = MaterialTheme.colors.secondaryVariant
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colors.primary),
+                scrollBehavior = scrollBehavior
+            )
+        })
+
+
 }
