@@ -27,8 +27,8 @@ fun CoinListItem(
 ) {
 
     Card(
-        modifier = Modifier.padding(8.dp).fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colors.primaryVariant),
+        modifier = Modifier.padding(8.dp).fillMaxWidth().padding(start = 12.dp, end = 12.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colors.background),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ){
@@ -43,11 +43,11 @@ fun CoinListItem(
                 text = "${coin.rank}. ${coin.name} (${coin.symbol})",
                 style = MaterialTheme.typography.body1,
                 overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colors.secondaryVariant
+                color = MaterialTheme.colors.primaryVariant
             )
             Text(
                 text = if (coin.isActive) stringResource(R.string.active) else stringResource(R.string.inactive),
-                color = if (coin.isActive) MaterialTheme.colors.secondaryVariant else MaterialTheme.colors.onSecondary,
+                color = if (coin.isActive) MaterialTheme.colors.primaryVariant else MaterialTheme.colors.onSecondary,
                 fontStyle = FontStyle.Italic,
                 textAlign = TextAlign.End,
                 style = MaterialTheme.typography.body2,

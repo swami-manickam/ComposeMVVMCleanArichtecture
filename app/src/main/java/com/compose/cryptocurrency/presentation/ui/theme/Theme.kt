@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorPalette = darkColors(
-    primary = ColorOnPrimary,
+    primary = /*ColorOnPrimary,*/ AppPrimaryColor,
     background = TextWhite,
-    onBackground = ColorOnPrimary,
+    onBackground = CardBgColor,
     onPrimary = TextBlue,
     onSecondary = TextRed,
     primaryVariant =ColorOnPrimary,
@@ -22,8 +22,8 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary = ColorOnPrimary,
-    background = ColorPrimary,
+    primary = /*ColorOnPrimary,*/ AppPrimaryColor,
+    background = CardBgColor,
     onBackground = TextWhite,
     onPrimary = TextBlue,
     onSecondary = TextRed,

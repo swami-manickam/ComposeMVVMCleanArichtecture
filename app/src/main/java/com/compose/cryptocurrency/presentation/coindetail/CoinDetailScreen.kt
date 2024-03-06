@@ -47,7 +47,7 @@ fun CoinDetailScreen(
                             text = "${coinDetail.rank}. ${coinDetail.name} (${coinDetail.symbol})",
                             style = MaterialTheme.typography.h2,
                             modifier = Modifier.weight(8f),
-                            color = MaterialTheme.colors.primary
+                            color = MaterialTheme.colors.primaryVariant
                         )
                         Text(
                             text = if (coinDetail.isActive) stringResource(R.string.active) else stringResource(R.string.inactive),
@@ -67,7 +67,7 @@ fun CoinDetailScreen(
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = stringResource(R.string.tags), style = MaterialTheme.typography.h3,
-                        color = MaterialTheme.colors.primary
+                        color = MaterialTheme.colors.primaryVariant
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     com.google.accompanist.flowlayout.FlowRow(
@@ -83,7 +83,7 @@ fun CoinDetailScreen(
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = stringResource(R.string.team_members), style = MaterialTheme.typography.h3,
-                        color = MaterialTheme.colors.primary
+                        color = MaterialTheme.colors.primaryVariant
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                 }
