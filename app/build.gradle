@@ -100,5 +100,10 @@ dependencies {
     //Datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     /*implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0-RC.2"*/
+    implementation 'androidx.compose.foundation:foundation:1.6.3'
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.30.1"
+
+    //To display Images from URL
+    implementation "io.coil-kt:coil-compose:2.4.0"
 
 }

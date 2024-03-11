@@ -107,6 +107,7 @@ fun CoinBottomNav(
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterialApi
 @Composable
 fun NavigationGraph(
