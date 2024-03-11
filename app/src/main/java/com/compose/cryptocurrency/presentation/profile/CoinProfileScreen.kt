@@ -147,7 +147,7 @@ fun ProfileScreenCard() {
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_splash_bitcoin),
+                    painter = painterResource(id = R.drawable.ic_bitcoin),
                     contentDescription = null,
                     modifier = Modifier.size(110.dp)
                 )

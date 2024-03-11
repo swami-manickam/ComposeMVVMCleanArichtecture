@@ -63,9 +63,9 @@ fun SplashScreen(alpha: Float) {
 
         Image(
             modifier = Modifier
-                .size(120.dp)
+                .size(180.dp)
                 .alpha(alpha),
-            painter = painterResource(id = R.drawable.ic_splash_bitcoin),
+            painter = painterResource(id = R.drawable.ic_bitcoin),
             contentDescription = "Logo Icon"
         )
     }
