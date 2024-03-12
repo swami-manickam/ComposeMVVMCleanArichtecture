@@ -2,7 +2,9 @@ package com.compose.cryptocurrency.presentation.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -33,6 +35,8 @@ import com.compose.cryptocurrency.presentation.AnimatedSplashScreen
 import com.compose.cryptocurrency.presentation.DashboardScreen
 import com.compose.cryptocurrency.presentation.MainViewModel
 import com.compose.cryptocurrency.presentation.Screen
+import com.compose.cryptocurrency.presentation.chart.HeartRateScreen
+import com.compose.cryptocurrency.presentation.chart.PAIScreen
 import com.compose.cryptocurrency.presentation.coindetail.CoinDetailScreen
 import com.compose.cryptocurrency.presentation.coinlist.CoinListScreen
 import com.compose.cryptocurrency.presentation.notification.CoinNotificationScreen
@@ -115,10 +119,26 @@ fun NavigationGraph(
     modifier: Modifier,
     bottomBarState: MutableState<Boolean>
 ) {
+
+
     NavHost(
         navController,
         startDestination = CoinBottomNavItem.CoinHome.route,
-        modifier = modifier
+        modifier = modifier,
+
+        /*enterTransition = {
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, animationSpec = tween(500))
+        },
+        exitTransition = {
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Left, animationSpec =tween(500))
+        },
+        popEnterTransition = {
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Right, animationSpec =tween(500))
+        },
+        popExitTransition = {
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, animationSpec =tween(500))
+        }*/
+
     ) {
         composable(CoinBottomNavItem.CoinHome.route) {
             LaunchedEffect(Unit) {
@@ -157,6 +177,24 @@ fun NavigationGraph(
                 bottomBarState.value = false
             }
             WalletScreen()
+        }
+
+        composable(
+            route = Screen.HeartRateScreen.route
+        ) {
+            LaunchedEffect(Unit) {
+                bottomBarState.value = false
+            }
+            HeartRateScreen()
+        }
+
+        composable(
+            route = Screen.PAIScreen.route
+        ) {
+            LaunchedEffect(Unit) {
+                bottomBarState.value = false
+            }
+            PAIScreen()
         }
 
     }

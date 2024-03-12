@@ -102,6 +102,10 @@ fun DashboardScreen() {
             topBarState.value = true
             bottomBarState.value = false
         }
+        Screen.HeartRateScreen.route -> {
+            topBarState.value = true
+            bottomBarState.value = false
+        }
     }
 
     Scaffold(

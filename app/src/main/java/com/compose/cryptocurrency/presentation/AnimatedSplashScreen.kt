@@ -8,10 +8,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -65,7 +61,7 @@ fun SplashScreen(alpha: Float) {
             modifier = Modifier
                 .size(180.dp)
                 .alpha(alpha),
-            painter = painterResource(id = R.drawable.ic_bitcoin),
+            painter = painterResource(id = R.drawable.ic_bitcoin_logo),
             contentDescription = "Logo Icon"
         )
     }
